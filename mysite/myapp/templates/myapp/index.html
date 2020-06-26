@@ -1,43 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>This is a scam website!</title>
-    {% load static %}
-    <link rel="shortcut icon" type="image/png" href="{% static 'myapp/favicon.ico' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'myapp/mystyle.css' %}">
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-</head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">Home</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+{% extends 'myapp/base.html' %}
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="another.html">How to<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Why<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Donate<span class="sr-only">(current)</span></a>
-            </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-    </div>
-</nav>
+{% block content %}
 <h1> Welcome to our scam website</h1>
 <h3> Click the below button to be scammed!!</h3>
-<div style ="text-align:center">
+<div style="text-align:center">
     <input type="button" value="GET SCAMMED!" onclick="msg()">
 </div>
 <script>
@@ -45,8 +11,5 @@
         alert("You have been scammed successfully!")
         }
 
-
-
 </script>
-</body>
-</html>
+{% endblock %}
