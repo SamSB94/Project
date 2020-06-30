@@ -1,7 +1,3 @@
-body {
-  background-color: #F20C14;
-}
-
 h1 {
   color: black;
   text-align: center;
@@ -13,6 +9,7 @@ h3 {
 }
 
 p {
+  text-align: center;
   font-family: verdana;
   font-size: 20px;
 }

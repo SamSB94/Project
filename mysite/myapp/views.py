@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import Feedback
 
 
 def index(request):
@@ -14,4 +15,13 @@ def why(request):
 
 
 def donate(request):
-    return render(request, 'myapp/donate.html')
+    if request.method == 'POST':
+        email_r = request.POST.get('email')
+        amount_r = request.POST.get('amount')
+        message_r = request.POST.get('message')
+
+        f = Feedback(email=email_r, amount=amount_r, message=message_r)
+        f.save()
+        return render(request, 'myapp/index.html')
+    else:
+        return render(request, 'myapp/donate.html')
