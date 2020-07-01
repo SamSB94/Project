@@ -4,13 +4,8 @@
 <h1> Welcome to our scam website</h1>
 <h3> Click the below button to be scammed!!</h3>
 <div style="text-align:center">
-    <input type="button" value="GET SCAMMED!" onclick="msg()">
+    <a href="{% url 'joke' %}" class="btn btn-primary">Get Scammed!</a>
+
 </div>
-<script>
-    function msg() {
-        alert("You have been scammed successfully!")
-        }
 
-
-</script>
 {% endblock %}
