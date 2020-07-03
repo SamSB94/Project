@@ -1,5 +1,38 @@
 {% extends 'myapp/base.html' %}
 
 {% block content %}
-<p>13 reasons why you would want to get scammed by us!</p>
+<div>
+    <div class="col-lg-2 mx-auto" style="margin-top: 40px">
+        <a class="btn btn-primary btn-lg" href="{% url 'create' %}" role="button">Add a new record</a>
+    </div>
+    <div class="container" style="text-align:center; margin-top:30px;">
+        <div class="col-lg-7 mx-auto">
+            <table border="1" width="600">
+                <tr>
+                    <th>Name</th>
+                    <th>Email ID</th>
+                    <th>Age</th>
+                </tr>
+
+
+                {% if all_employees%}
+
+                {% for employees in all_employees %}
+                <tr>
+                    <td>{{employees.name}}</td>
+                    <td>{{employees.email}}</td>
+                    <td>{{employees.age}}</td>
+                <tr>
+                    {% endfor %}
+
+                    {% else %}
+                    <p>No data are available.</p>
+                {% endif %}
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
 {% endblock %}

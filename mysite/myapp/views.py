@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from .models import Feedback
+from .models import Feedback, Employees
 
 import json
 
@@ -16,7 +16,9 @@ def another(request):
 
 
 def why(request):
-    return render(request, 'myapp/why.html')
+    all_employees = Employees.objects.all()
+    context = {'all_employees': all_employees}
+    return render(request, 'myapp/why.html', context)
 
 
 def donate(request):
@@ -39,3 +41,18 @@ def scammed(request):
 
     context = {'joker': joke}
     return render(request, 'myapp/joke.html', context)
+
+
+def create(request):
+    if request.method == 'POST':
+        name_r = request.POST.get('name')
+        email_r = request.POST.get('email')
+        age_r = request.POST.get('age')
+
+        f = Employees(name=name_r, email=email_r, age=age_r)
+        f.save()
+        all_employees = Employees.objects.all()
+        context = {'all_employees': all_employees}
+        return render(request, 'myapp/why.html', context)
+    else:
+        return render(request, 'myapp/create.html')
