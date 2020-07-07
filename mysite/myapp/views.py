@@ -2,6 +2,8 @@ from django.shortcuts import render
 
 from .models import Feedback, Employees
 
+from .forms import EmployeeForm
+
 import json
 
 import requests
@@ -13,12 +15,6 @@ def index(request):
 
 def another(request):
     return render(request, 'myapp/another.html')
-
-
-def why(request):
-    all_employees = Employees.objects.all()
-    context = {'all_employees': all_employees}
-    return render(request, 'myapp/why.html', context)
 
 
 def donate(request):
@@ -43,16 +39,31 @@ def scammed(request):
     return render(request, 'myapp/joke.html', context)
 
 
-def create(request):
-    if request.method == 'POST':
-        name_r = request.POST.get('name')
-        email_r = request.POST.get('email')
-        age_r = request.POST.get('age')
+def why(request):
+    context = {'employee_list': Employees.objects.all()}
+    return render(request, "myapp/why.html", context)
 
-        f = Employees(name=name_r, email=email_r, age=age_r)
-        f.save()
-        all_employees = Employees.objects.all()
-        context = {'all_employees': all_employees}
-        return render(request, 'myapp/why.html', context)
+
+def create(request, id=0):
+    if request.method == "GET":
+        if id == 0:
+            form = EmployeeForm()
+        else:
+            employee = Employees.objects.get(pk=id)
+            form = EmployeeForm(instance=employee)
+        return render(request, "myapp/create.html", {'form': form})
     else:
-        return render(request, 'myapp/create.html')
+        if id == 0:
+            form = EmployeeForm(request.POST)
+        else:
+            employee = Employees.objects.get(pk=id)
+            form = EmployeeForm(request.POST, instance=employee)
+        if form.is_valid():
+            form.save()
+        return why(request)
+
+
+def delete(request, id):
+    employee = Employees.objects.get(pk=id)
+    employee.delete()
+    return why(request)

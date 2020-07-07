@@ -1,36 +1,49 @@
 {% extends 'myapp/base.html' %}
 
 {% block content %}
-<div>
-    <div class="col-lg-2 mx-auto" style="margin-top: 40px">
-        <a class="btn btn-primary btn-lg" href="{% url 'create' %}" role="button">Add a new record</a>
-    </div>
-    <div class="container" style="text-align:center; margin-top:30px;">
-        <div class="col-lg-7 mx-auto">
-            <table border="1" width="600">
+<div class="container">
+    <div class="col-md-10 offset-md-1 mt-5" style="margin-top: 40px">
+        <div class="jumbotron">
+            <h1 class="display-4">Employee CRUD</h1>
+            <p class="lead">Create, Read, Update and Delete Employee records:-</p>
+            <hr class="my-4">
+            <table class="table table-borderless">
+                <thead class="border-bottom font-weight-bold">
                 <tr>
-                    <th>Name</th>
-                    <th>Email ID</th>
-                    <th>Age</th>
+                    <td>Full Name</td>
+                    <td>Email</td>
+                    <td>Age</td>
+                    <td>
+                        <a href="{% url 'create' %}" class="btn btn-outline-success">
+                            <i class="fas fa-plus"></i> Add New
+                        </a>
+                    </td>
                 </tr>
-
-
-                {% if all_employees%}
-
-                {% for employees in all_employees %}
+                </thead>
+                <tbody>
+                {% for employee in employee_list %}
                 <tr>
-                    <td>{{employees.name}}</td>
-                    <td>{{employees.email}}</td>
-                    <td>{{employees.age}}</td>
-                <tr>
-                    {% endfor %}
-
-                    {% else %}
-                    <p>No data are available.</p>
-                {% endif %}
+                    <td>{{employee.name}}</td>
+                    <td>{{employee.email}}</td>
+                    <td>{{employee.age}}</td>
+                    <td>
+                        <a href="{% url 'update' employee.id %}" class="btn text-secondary px-0">
+                            <i class="far fa-edit fa-lg"></i>
+                        </a>
+                        <form action="{% url 'delete' employee.id %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn">
+                                <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
             </table>
 
         </div>
+
     </div>
 
 </div>
